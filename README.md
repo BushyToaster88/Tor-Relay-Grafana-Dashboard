@@ -32,7 +32,7 @@ Example: Prometheus Configuration
 You can add as many targets as you want.
 
 ## Preview
-(The bars are just the result of the screenshotting process)
 
-![screencapture-stats-exulan-au-d-cer48kf7661oga-tor-relay-monitoring-2025-07-07-21_38_18](https://github.com/user-attachments/assets/11894e1f-092c-4816-b443-9d83bdf0cb9e)
+<img width="1920" height="4168" alt="Tor Relay Monitoring-1780382894061" src="https://github.com/user-attachments/assets/dbc4293f-0547-4a01-b6b6-e460d62074f6" />
+
 
