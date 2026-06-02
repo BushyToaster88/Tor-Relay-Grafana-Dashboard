@@ -2307,18 +2307,9 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "rate(tor_relay_destroy_cell_total{instance=~\"$instance\"}[5m])",
-          "legendFormat": "DESTROY cells/s",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
           "expr": "rate(tor_relay_drop_cell_total{instance=~\"$instance\"}[5m])",
           "legendFormat": "Dropped cells/s",
-          "refId": "B"
+          "refId": "A"
         },
         {
           "datasource": {
@@ -2327,12 +2318,12 @@
           },
           "expr": "rate(tor_relay_circ_proto_violation_total{instance=~\"$instance\"}[5m])",
           "legendFormat": "Circuit proto violations/s",
-          "refId": "C"
+          "refId": "B"
         }
       ],
-      "title": "Cell Errors & Protocol Violations",
+      "title": "Dropped Cells & Protocol Violations",
       "type": "timeseries",
-      "description": "DESTROY cells, dropped cells and circuit-level protocol violations. Sustained nonzero values can indicate attacks or buggy peers."
+      "description": "Dropped cells and circuit-level protocol violations — low-volume anomaly signals; sustained growth can indicate attacks or buggy peers. (DESTROY cells are normal teardown, shown separately.)"
     },
     {
       "datasource": {
@@ -2497,6 +2488,102 @@
       "title": "Internal Bug Counter (should be 0)",
       "type": "stat",
       "description": "tor_bug_reached_count — increments when Tor hits an internal non-fatal bug assertion. Expected to stay at 0."
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "DESTROY cells sent/received to tear down circuits. This is normal Tor signaling — its rate tracks circuit churn, not errors. Watch for unusual spikes relative to your circuit volume.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "cps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 99
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_destroy_cell_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "DESTROY cells/s",
+          "refId": "A"
+        }
+      ],
+      "title": "Circuit Teardown (DESTROY Cells)",
+      "type": "timeseries"
     }
   ],
   "refresh": "30s",
