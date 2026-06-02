@@ -87,17 +87,17 @@
           },
           "mappings": [
             {
+              "type": "value",
               "options": {
                 "0": {
-                  "color": "red",
-                  "text": "No"
+                  "text": "Down",
+                  "index": 0
                 },
                 "1": {
-                  "color": "green",
-                  "text": "Yes"
+                  "text": "Up",
+                  "index": 1
                 }
-              },
-              "type": "value"
+              }
             }
           ],
           "thresholds": {
@@ -208,7 +208,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(tor_relay_connections{state=\"opened\",instance=~\"$instance\"})",
+          "expr": "sum(tor_relay_connections{state=\"opened\",type!~\".*listener\",instance=~\"$instance\"})",
           "legendFormat": "Total Open",
           "refId": "A"
         },
@@ -252,7 +252,8 @@
                 "value": 60000
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -296,7 +297,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "65504 - tor_relay_load_socket_total{state=\"opened\",instance=~\"$instance\"}",
+          "expr": "$socket_limit - tor_relay_load_socket_total{state=\"opened\",instance=~\"$instance\"}",
           "legendFormat": "Available Sockets",
           "refId": "B"
         }
@@ -341,7 +342,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -356,7 +357,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -447,7 +449,7 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "bps"
         },
         "overrides": [
           {
@@ -581,7 +583,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": [
           {
@@ -696,7 +699,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -749,7 +753,7 @@
           "refId": "C"
         }
       ],
-      "title": "Circuit Performance",
+      "title": "Hidden Service Success Rate",
       "type": "timeseries"
     },
     {
@@ -792,7 +796,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line"
             }
           },
           "mappings": [],
@@ -808,7 +812,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -896,13 +901,10 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -1001,7 +1003,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -1076,7 +1079,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1091,7 +1094,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -1175,7 +1179,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1190,7 +1194,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -1289,7 +1294,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": [
           {
@@ -1389,7 +1395,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1402,13 +1408,10 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -1483,7 +1486,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1498,7 +1501,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -1573,7 +1577,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1588,7 +1592,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": []
       },
@@ -1678,7 +1683,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": [
           {
@@ -1812,7 +1818,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "cps"
         },
         "overrides": [
           {
@@ -1867,7 +1874,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "rate(tor_relay_exit_dns_error_total{instance=~\"$instance\"}[5m])",
+          "expr": "rate(tor_relay_exit_dns_error_total{reason!=\"success\",instance=~\"$instance\"}[5m])",
           "legendFormat": "{{reason}} Errors/sec",
           "refId": "B"
         }
@@ -1898,7 +1905,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -2086,8 +2094,409 @@
           "refId": "A"
         }
       ],
-      "title": "Memory Usage (OOM Events)",
+      "title": "OOM Reclaimed Bytes",
       "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "cps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 83
+      },
+      "id": 23,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_est_intro_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "EST_INTRO {{action}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_est_rend_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "EST_REND {{action}}",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_intro1_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "INTRO1 {{action}}",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_rend1_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "REND1 {{action}}",
+          "refId": "D"
+        }
+      ],
+      "title": "Hidden Service Activity (Intro & Rendezvous)",
+      "type": "timeseries",
+      "description": "EST_INTRO / EST_REND / INTRO1 / REND1 cell handling, broken down by outcome (success vs malformed, circuit_dead, etc.)."
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "cps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 83
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_destroy_cell_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "DESTROY cells/s",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_drop_cell_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "Dropped cells/s",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_circ_proto_violation_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "Circuit proto violations/s",
+          "refId": "C"
+        }
+      ],
+      "title": "Cell Errors & Protocol Violations",
+      "type": "timeseries",
+      "description": "DESTROY cells, dropped cells and circuit-level protocol violations. Sustained nonzero values can indicate attacks or buggy peers."
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "cps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 91
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(tor_relay_congestion_control_total{instance=~\"$instance\"}[5m])",
+          "legendFormat": "{{state}} / {{action}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Flow Control & Congestion Events",
+      "type": "timeseries",
+      "description": "Counter-based congestion-control events (xon/xoff sent, circuits created/closed, RTT resets, etc.), grouped by state/action."
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 91
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "tor_bug_reached_count{instance=~\"$instance\"}",
+          "legendFormat": "Bugs Reached",
+          "refId": "A"
+        }
+      ],
+      "title": "Internal Bug Counter (should be 0)",
+      "type": "stat",
+      "description": "tor_bug_reached_count — increments when Tor hits an internal non-fatal bug assertion. Expected to stay at 0."
     }
   ],
   "refresh": "30s",
@@ -2126,6 +2535,20 @@
         "query": "label_values(tor_relay_flag, instance)",
         "refresh": 1,
         "type": "query"
+      },
+      {
+        "current": {
+          "text": "65504",
+          "value": "65504",
+          "selected": false
+        },
+        "description": "Max sockets for the Socket Usage gauge (match your ConnLimit/ulimit).",
+        "hide": 2,
+        "label": "Socket Limit",
+        "name": "socket_limit",
+        "query": "65504",
+        "skipUrlSync": false,
+        "type": "constant"
       }
     ]
   },
